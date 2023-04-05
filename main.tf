@@ -7,6 +7,10 @@ resource "aws_glue_crawler" "this" {
     path = var.path
   }
 
+  provisioner "local-exec" {
+    command = "aws glue start-crawler --name ${self.name}"
+  }
+
   configuration = <<EOF
 {
  "Version":1.0,
