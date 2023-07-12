@@ -8,7 +8,7 @@ resource "aws_glue_crawler" "this" {
   }
 
   provisioner "local-exec" {
-    command = "aws glue start-crawler --name ${self.name}"
+    command = "aws glue start-crawler --name ${self.name} --region ${var.region}"
   }
 
   configuration = <<EOF

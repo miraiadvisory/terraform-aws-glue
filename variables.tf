@@ -10,3 +10,6 @@ variable "role" {
 variable "path" {
     type = string
 }
+variable "region" {
+    type = string
+}
