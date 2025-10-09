@@ -1,3 +1,9 @@
+locals {
+  force_log_schema          = var.recrawl_behavior == "CRAWL_NEW_FOLDERS_ONLY"
+  effective_update_behavior = local.force_log_schema ? "LOG" : var.schema_update_behavior
+  effective_delete_behavior = local.force_log_schema ? "LOG" : var.schema_delete_behavior
+}
+
 resource "aws_glue_crawler" "this" {
   database_name = var.database_name
   name          = var.name
@@ -12,6 +18,11 @@ resource "aws_glue_crawler" "this" {
     content {
       recrawl_behavior = recrawl_policy.value
     }
+  }
+
+  schema_change_policy {
+    update_behavior = local.effective_update_behavior
+    delete_behavior = local.effective_delete_behavior
   }
 
   provisioner "local-exec" {
