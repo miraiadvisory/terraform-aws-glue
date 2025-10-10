@@ -10,7 +10,8 @@ resource "aws_glue_crawler" "this" {
   role          = var.role
 
   s3_target {
-    path = var.path
+    path        = var.path
+    sample_size = 1
   }
 
   dynamic "recrawl_policy" {
