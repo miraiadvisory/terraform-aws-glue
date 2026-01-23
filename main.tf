@@ -16,8 +16,8 @@ resource "aws_glue_crawler" "this" {
   }
 
   schema_change_policy {
-    update_behavior = "LOG"
-    delete_behavior = "LOG"
+    update_behavior = var.schema_update_behavior
+    delete_behavior = var.schema_delete_behavior
   }
 
   provisioner "local-exec" {

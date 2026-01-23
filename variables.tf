@@ -27,3 +27,21 @@ variable "recrawl_behavior" {
   }
 }
 
+variable "schema_update_behavior" {
+  type    = string
+  default = "LOG"
+  validation {
+    condition     = contains(["LOG", "UPDATE_IN_DATABASE"], var.schema_update_behavior)
+    error_message = "schema_update_behavior must be LOG or UPDATE_IN_DATABASE"
+  }
+}
+
+variable "schema_delete_behavior" {
+  type    = string
+  default = "LOG"
+  validation {
+    condition     = contains(["LOG", "DELETE_FROM_DATABASE", "DEPRECATE_IN_DATABASE"], var.schema_delete_behavior)
+    error_message = "schema_delete_behavior must be LOG, DELETE_FROM_DATABASE or DEPRECATE_IN_DATABASE"
+  }
+}
+
